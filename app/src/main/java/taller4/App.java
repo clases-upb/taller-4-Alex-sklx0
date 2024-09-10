@@ -3,106 +3,282 @@
  */
 package taller4;
 
-
-
 public class App {
-    
+
+    public static String Verde = "\u001B[32m",
+            Rojo = "\u001B[31m",
+            Negro = "\u001B[30m",
+            Amarillo = "\u001B[33m",
+            Azul = "\u001B[34m",
+            Purpura = "\u001B[35m",
+            CYAN = "\u001B[36m",
+            Blanco = "\u001B[37m",
+            RESET = "\u001B[0m";
+
+    public String getGreeting() {
+        return "Hello World!";
+    }
 
     public static void main(String[] args) {
-        
+        try {
+            //primer ejercicio
+            System.out.print(Verde + "primer ejercicio" + RESET);
+            System.out.println(num_impar(144));
+            // //segundo ejercicio
+            System.out.println("\n" + Azul + "segundo ejercicio" + RESET);
+            System.out.println(Sucesion_fibo(9));
+
+            // // // tecer ejercicio
+            System.out.println("\n" + Amarillo + "terecer ejercicio" + RESET);
+
+            final int min_entrada = 20, max_entrada = 30, const_suma = 1;
+            int cant_itera = (int) Math.random() * (max_entrada - min_entrada) + min_entrada + const_suma;
+            for (int itera = 0; itera < cant_itera; itera++) {
+                System.out.println(Calcular_raiz());
+            }
+            // // // cuarto ejercicio 
+            System.out.println("\n" + CYAN + "cuarto ejercicio" + RESET);
+            System.out.println(Num_pares(10, 20));
+
+            // // // qunto ejercicio
+            System.out.println("\n" + Purpura + "quinto ejercicio" + RESET);
+            System.out.println(sumar_aleatorio(50));
+
+            // // //sexto ejercicio
+            System.out.println("\n" + Rojo + "Sexto ejercicio" + RESET);
+            System.out.println(loteria());
+
+        } catch (Exception e) {
+            return ;
+        }
+
         //Coloque los llamados a cada función de acuerdo con cada enunciado
         //codifique el control de errores para el main
-
-
     }
 
     /* TODAS LAS FUNCIONES DEBEN LLEVAR CONTROL DE ERRORES, SI EL ENUNCIADO NO LO ESPECIFICA, LO DEBES PONER
-     * DE ACUERDO CON TU CRITERIO
+         * DE ACUERDO CON TU CRITERIO
      */
+ /* 
+         * 1.	Escriba una función que reciba un entero positivo entre 100 y 500 y retorne en un texto todos los números impares desde 1 
+         * hasta ese número separados por comas en grupos de hasta 8 números.
+         * 
+     */
+    public static String num_impar(int num) {
+        try {
+            final int const_par = 2, const_impar = 1, min = 100, max = 500, indicador_espaciado = 9, indicador_mod = 0;
+            int def_impar = 0;
 
-    /* 
-     * 1.	Escriba una función que reciba un entero positivo entre 100 y 500 y retorne en un texto todos los números impares desde 1 
-     * hasta ese número separados por comas en grupos de hasta 8 números.
-     * 
-    */
+            if (num < min || num > max) {
+                return "no ingrese numeros menores a 100 o mayores a 500";
+            }
+
+            for (int impar = 0; impar <= num; impar++) {
+
+                def_impar = (const_par * impar) + const_impar;
+
+                if (def_impar >= (num - const_impar) || def_impar == num) {
+                    break;
+                } else if (impar % indicador_espaciado == indicador_mod) {
+                    System.out.println();
+                } else {
+                    System.out.print(def_impar + ",");
+                }
+
+            }
+
+            return String.valueOf(def_impar);
+
+        } catch (Exception e) {
+
+            return "Ha ocurrido un error inesperado"+e.toString();
+        }
+    }
 
     /* 2. 	Escriba una función que reciba un entero N mayor de 2  y retorne un string cono esos N términos de la 
-    serie de Fibonacci (La sucesión de Fibonacci se trata de una serie infinita de números naturales que empieza con un 0 y un 1 
-    y continúa añadiendo números que son la suma de los dos anteriores: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 
-    987, 1597…)
-     * 
-     * 
-    */
+        serie de Fibonacci (La sucesión de Fibonacci se trata de una serie infinita de números naturales que empieza con un 0 y un 1 
+        y continúa añadiendo números que son la suma de los dos anteriores: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 
+        987, 1597…)
+         * 
+         * 
+     */
+    public static String Sucesion_fibo(int N) {
+        try {
+
+            final int min = 2, const0 = 0, const1 = 1;
+            int temp1 = 0, temp2 = 1, suma = 0;
+
+            if (N < min) {
+                return "No ingrese números menores a 2";
+            }
+
+            for (byte Fibonacci = 0; Fibonacci < N; Fibonacci++) {
+
+                if (Fibonacci == const0) {
+                    System.out.print(const0 + ",");
+                } else if (Fibonacci == const1) {
+                    System.out.print(const1 + ",");
+                } else {
+                    suma = temp1 + temp2;
+                    temp1 = temp2;
+                    temp2 = suma;
+                    System.out.print(String.valueOf(suma) + ",");
+                }
+            }
+
+            return "";
+
+        } catch (Exception e) {
+            return "Algo salió mal" + e.toString();
+        }
+
+    }
 
     /* 
-     * 3.	Diseñar y desarrollar una función que NO reciba datos de entrada, genere aleatoriamente un número entre 2 y 355, 
-       le calcule su raíz cuadrada y retorne este valor. Para calcular las raíces usar la función Sqrt de la biblioteca Math.
+         * 3.	Diseñar y desarrollar una función que NO reciba datos de entrada, genere aleatoriamente un número entre 2 y 355, 
+           le calcule su raíz cuadrada y retorne este valor. Para calcular las raíces usar la función Sqrt de la biblioteca Math.
+    
+           En el main, antes de invocar la función, se debe calcular un aleatorio entre 20 y 30 el cual establecerá la cantidad 
+           de veces que va a llamar a la función y en un ciclo, mostrar los resultados.
+    
+     */
+    public static double Calcular_raiz() {
+        try {
+            final int min = 2, max = 355, const_suma = 1;
 
-       En el main, antes de invocar la función, se debe calcular un aleatorio entre 20 y 30 el cual establecerá la cantidad 
-       de veces que va a llamar a la función y en un ciclo, mostrar los resultados.
+            double raiz_aleatorio = Math.sqrt(Math.random() * (max - min) + min + const_suma);
 
-    */
+            return raiz_aleatorio;
 
+        } catch (Exception e) {
+            return -1;
+        }
 
-
+    }
 
     /*4.	Diseñar y desarrollar una función que reciba un valor inicial y un valor final, para generar 900 números aleatorios 
-        en este rango y retorne un texto que diga cuántos números pares fueron generados. Controle que el nro inicial sea menor que 
-        nro final para establecer el rango.
+            en este rango y retorne un texto que diga cuántos números pares fueron generados. Controle que el nro inicial sea menor que 
+            nro final para establecer el rango.
+    
+            Llame la función desde el main e imprimir el resultado arrojado.
+     */
+    public static int Num_pares(int valor_inicial, int valor_final) {
+        try {
+            int contador_pares = 0, aleatorio = 0;;
+            final int cant_itera = 900, const_suma = 1, par = 2;
 
-        Llame la función desde el main e imprimir el resultado arrojado.
-    */
+            if (valor_inicial >= valor_final) {
+                return -1;
+            }
 
+            for (int itera = 0; itera < cant_itera; itera++) {
+                aleatorio = (int) Math.floor(Math.random() * (valor_final - valor_inicial) + valor_inicial + const_suma);
 
+                if (aleatorio % par == 0) {
+                    contador_pares++;
+                }
+            }
 
+            return contador_pares;
+
+        } catch (Exception e) {
+            return -1;
+        }
+
+    }
 
     /* 5.	Diseñar y desarrollar una función que calcule una cantidad de números aleatorios que viene como parámetro de entrada 
-        y los sume.  La función deberá retornar el total de la suma. Usted defina los rangos que va a usar en el cálculo.
+            y los sume.  La función deberá retornar el total de la suma. Usted defina los rangos que va a usar en el cálculo.
+    
+            Llame la función desde el main e imprimir el resultado arrojado.
+    
+          
+     */
+    public static double sumar_aleatorio(int cant_aleatorios) {
 
-        Llame la función desde el main e imprimir el resultado arrojado.
+        try {
+            double aleatorio = 0, suma = 0;
+            final int min = 0, lim_sup = 100, lim_inf = 1, cons_suma = 1;
 
-      
-    */
+            if (cant_aleatorios <= min) {
+                return -1;
+            }
 
+            for (int iter = 0; iter < cant_aleatorios; iter++) {
+                aleatorio = Math.round(Math.random() * (lim_sup - lim_inf) + lim_inf + cons_suma);
+                suma += aleatorio;
+            }
+            return suma;
+
+        } catch (Exception e) {
+            return -1;
+        }
+
+    }
 
     /* 6.	Se requiere una función para simular el sorteo de una lotería, de acuerdo con las siguientes condiciones:
+    
+                La lotería tiene 20 premios. 
+    
+                Cada premio que calcula el programa debe tener el número de 4 cifras entre 0000 y 9999 acompañado de la serie 
+                que es un número entre 100 y 150.
+    
+                Ejemplo: 5698-101
+    
+                Cada premio lo debe imprimir el programa de la siguiente forma (n representa un número cualquiera):
+    
+                Sorteo # nn - Número Premiado nnnn - Serie nnn
+    
+                Ejm: Sorteo # 19  - Número Premiado 5698 - Serie 101
+    
+                Para tener en cuenta la forma en la cual se informan los 20 resultados: 
+    
+                Del premio 20 al 6 el programa imprime: 
+    
+                ======PREMIOS MENORES=======
+                y la lista de los 15 premios 
+    
+                Del premio 5 al 2 el programa imprime:
+                ======PREMIOS SECOS=========
+                y la lista de los 4 premios secos
+    
+                AL llegar al premio 1, el programa imprime:
+                ======Premio mayor==========
+                Y el premio mayor
+    
+                Nota: para sacar el premio mayor calcule el random por cada número, como lo hacen en la realidad los sorteos.
+    
+                La función no recibe parámetros y devuelve un string con toda la lista de premios. El main, invoca la función 
+                e imprime el resultado que esta arroje. 
+    
+    
+         * 
+         * 
+     */
+    public static String loteria() {
+        try {
+            String uno = "", dos = "", tres = "";
+            int num_sorteo = 0, num_premiado = 0, num_serie = 0;
+            final int cant_premios = 20, cifras_premiado = 1000, cifras_serie = 100, cifras2_serie = 150, const1 = 1;
 
-            La lotería tiene 20 premios. 
+            for (int itera = 0; itera <= cant_premios; itera++) {
+                num_premiado = (int) Math.floor(Math.random() * cifras_premiado);
+                num_serie = (int) Math.floor(Math.random() * (cifras2_serie - cifras_serie) + cifras_serie + const1);
 
-            Cada premio que calcula el programa debe tener el número de 4 cifras entre 0000 y 9999 acompañado de la serie 
-            que es un número entre 100 y 150.
+                if (itera == 1) {
+                    tres += Purpura + "=======Premio mayor========\n  Sorteo # " + RESET + num_sorteo + "  - Número Premiado " + num_premiado + " - Serie " + num_serie + "\n";
+                } else if (itera <= 5 && itera >= 2) {
+                    dos += CYAN + "=======PREMIOS SECOS=======\n  Sorteo # " + RESET + num_sorteo + "  - Número Premiado " + num_premiado + " - Serie " + num_serie + "\n";
+                } else if (itera <= 20 && itera >= 6) {
+                    uno += Verde + "======PREMIOS MENORES=======\n  Sorteo # " + RESET + num_sorteo + "  - Número Premiado " + num_premiado + " - Serie " + num_serie + "\n";
+                }
+                num_sorteo++;
 
-            Ejemplo: 5698-101
+            }
+            return uno + dos + tres;
+        } catch (Exception e) {
+            return "Hubo un error inesperado" + e.toString();
+        }
 
-            Cada premio lo debe imprimir el programa de la siguiente forma (n representa un número cualquiera):
-
-            Sorteo # nn - Número Premiado nnnn - Serie nnn
-
-            Ejm: Sorteo # 19  - Número Premiado 5698 - Serie 101
-
-            Para tener en cuenta la forma en la cual se informan los 20 resultados: 
-
-            Del premio 20 al 6 el programa imprime: 
-
-            ======PREMIOS MENORES=======
-            y la lista de los 15 premios 
-
-            Del premio 5 al 2 el programa imprime:
-            ======PREMIOS SECOS=========
-            y la lista de los 4 premios secos
-
-            AL llegar al premio 1, el programa imprime:
-            ======Premio mayor==========
-            Y el premio mayor
-
-            Nota: para sacar el premio mayor calcule el random por cada número, como lo hacen en la realidad los sorteos.
-
-            La función no recibe parámetros y devuelve un string con toda la lista de premios. El main, invoca la función 
-            e imprime el resultado que esta arroje. 
-
-
-     * 
-     * 
-    */
-
+    }
 }
